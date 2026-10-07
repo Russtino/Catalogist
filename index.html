@@ -1,0 +1,437 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Catalogist: a program and course catalog for college WordPress sites</title>
+<meta name="description" content="Catalogist is a free WordPress plugin for community and technical colleges: semester-by-semester program maps with pathways, course pages with linked prerequisites, searchable program and course lists, and spreadsheet import.">
+<link rel="icon" href="assets/icon-128x128.png">
+<meta property="og:title" content="Catalogist">
+<meta property="og:description" content="A free program and course catalog for college WordPress sites.">
+<meta property="og:image" content="https://russtino.github.io/Catalogist/assets/banner-1544x500.png">
+<meta property="og:url" content="https://russtino.github.io/Catalogist/">
+<link rel="canonical" href="https://russtino.github.io/Catalogist/">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,400;0,600;0,700;1,400&family=Source+Serif+4:opsz,wght@8..60,600;8..60,700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #0c1a3f;
+    --navy-soft: #1a2d5c;
+    --teal: #35a9a0;       /* decorative, and text on navy */
+    --teal-ink: #0f6e67;   /* links and text on white */
+    --ink: #1d2433;
+    --muted: #556075;
+    --line: #dbe2ea;
+    --wash: #f2f5f9;
+    --serif: "Source Serif 4", Georgia, "Times New Roman", serif;
+    --sans: "Public Sans", "Segoe UI", system-ui, -apple-system, sans-serif;
+    --measure: 38rem;
+  }
+
+  * { box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+  @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+
+  body {
+    margin: 0;
+    font-family: var(--sans);
+    font-size: 1.0625rem;
+    line-height: 1.6;
+    color: var(--ink);
+    background: #fff;
+  }
+
+  img { max-width: 100%; height: auto; display: block; }
+
+  a { color: var(--teal-ink); text-underline-offset: 0.18em; }
+  a:hover { color: var(--navy); }
+
+  :focus-visible { outline: 3px solid var(--teal); outline-offset: 3px; border-radius: 2px; }
+
+  .skip {
+    position: absolute; left: 1rem; top: -4rem;
+    background: #fff; color: var(--navy); padding: 0.5rem 1rem; z-index: 10;
+  }
+  .skip:focus { top: 1rem; }
+
+  .wrap { width: min(72rem, 100% - 2.5rem); margin-inline: auto; }
+
+  h1, h2, h3 { font-family: var(--serif); font-weight: 700; line-height: 1.15; margin: 0; }
+  h2 { font-size: clamp(1.75rem, 1.3rem + 1.6vw, 2.4rem); color: var(--navy); }
+  h3 { font-size: 1.35rem; color: var(--navy); }
+  p { margin: 0 0 1rem; max-width: var(--measure); }
+
+  /* ---------- Header and hero (one navy band) ---------- */
+  .top { background: var(--navy); color: #fff; }
+
+  .site-header {
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 1rem; padding-block: 1.25rem;
+  }
+  .brand {
+    display: inline-flex; align-items: center; gap: 0.7rem;
+    color: #fff; text-decoration: none;
+    font-family: var(--serif); font-weight: 700; font-size: 1.4rem;
+  }
+  .brand img { width: 2.4rem; height: 2.4rem; border-radius: 0.45rem; }
+  .site-nav { display: flex; gap: 1.5rem; flex-wrap: wrap; }
+  .site-nav a { color: #dfe7f2; text-decoration: none; font-weight: 600; font-size: 0.97rem; }
+  .site-nav a:hover { color: #fff; text-decoration: underline; }
+
+  .hero {
+    display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr);
+    gap: clamp(2rem, 5vw, 4.5rem); align-items: center;
+    padding-block: clamp(2.5rem, 6vw, 5rem) clamp(3rem, 7vw, 6rem);
+  }
+  .hero h1 {
+    font-size: clamp(2.3rem, 1.4rem + 3.4vw, 3.6rem);
+    letter-spacing: -0.01em; margin-bottom: 1.25rem;
+  }
+  .hero .lede { font-size: 1.15rem; color: #d8e1ee; max-width: 32rem; }
+  .hero .lede strong { color: #fff; font-weight: 600; }
+
+  .actions { display: flex; flex-wrap: wrap; gap: 0.75rem; margin-top: 1.75rem; }
+  .button {
+    display: inline-block; padding: 0.8rem 1.35rem; border-radius: 0.4rem;
+    font-weight: 700; text-decoration: none; font-size: 1rem;
+    border: 2px solid transparent;
+  }
+  .button.primary { background: var(--teal); color: var(--navy); }
+  .button.primary:hover { background: #fff; color: var(--navy); }
+  .button.secondary { border-color: #6f82a8; color: #fff; }
+  .button.secondary:hover { border-color: #fff; color: #fff; }
+  .hero .fine { margin-top: 1rem; font-size: 0.92rem; color: #aebbd0; }
+
+  /* ---------- The live program map (hero demo) ---------- */
+  .demo {
+    background: #fff; color: var(--ink);
+    border-radius: 0.6rem; padding: 1.5rem 1.5rem 1.25rem;
+    border-top: 6px solid var(--teal);
+  }
+  .demo-title { font-family: var(--serif); font-size: 1.35rem; color: var(--navy); margin: 0; }
+  .demo-credential { margin: 0.15rem 0 1rem; color: var(--muted); font-size: 0.95rem; }
+
+  .switcher { display: flex; align-items: center; flex-wrap: wrap; gap: 0.4rem; margin-bottom: 0.4rem; }
+  .switcher-label { font-weight: 700; margin-right: 0.25rem; }
+  .switcher button {
+    font: inherit; font-size: 0.95rem; cursor: pointer;
+    padding: 0.3rem 0.95rem; border-radius: 999px;
+    border: 1px solid #9aa7bd; background: #fff; color: var(--ink);
+  }
+  .switcher button[aria-pressed="true"] {
+    background: var(--navy); border-color: var(--navy); color: #fff; font-weight: 600;
+  }
+  .pathway-note { min-height: 1.5em; margin: 0.3rem 0 0.9rem; font-size: 0.92rem; color: var(--muted); }
+
+  .terms { display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; }
+  .term { width: 100%; border-collapse: collapse; font-size: 0.9rem; table-layout: fixed; }
+  .term caption { text-align: left; font-weight: 700; padding-bottom: 0.35rem; }
+  .term th, .term td { padding: 0.32rem 0.3rem; border-bottom: 1px solid var(--line); text-align: left; vertical-align: top; }
+  .term thead th { font-size: 0.78rem; color: var(--muted); font-weight: 600; }
+  .term th:first-child, .term td:first-child { width: 4.6rem; white-space: nowrap; }
+  .term th:last-child, .term td:last-child { width: 2.6rem; text-align: right; }
+  /* Pathway headings span the row, so undo the first/last column rules. */
+  .term .group th {
+    width: auto; text-align: left; white-space: normal;
+    font-style: italic; color: var(--navy); padding-top: 0.6rem;
+  }
+  .term .choice td:nth-child(2) { font-style: italic; }
+  .term .choice small { display: block; font-style: normal; color: var(--muted); }
+  .term tfoot th, .term tfoot td { font-weight: 700; border-bottom: 0; }
+  .term tbody[hidden] { display: none; }
+  .demo-total { margin: 1rem 0 0; font-weight: 700; color: var(--navy); }
+  .demo-caption { margin: 0.9rem 0 0; font-size: 0.85rem; color: var(--muted); }
+
+  /* ---------- Feature rows ---------- */
+  section { padding-block: clamp(3.5rem, 8vw, 6rem); }
+  .intro { max-width: 46rem; margin-bottom: clamp(2.5rem, 5vw, 4rem); }
+  .intro p { color: var(--muted); font-size: 1.1rem; margin-top: 1rem; }
+
+  .feature {
+    display: grid; grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
+    gap: clamp(1.75rem, 4vw, 3.5rem); align-items: center;
+  }
+  .feature + .feature { margin-top: clamp(3rem, 7vw, 5.5rem); }
+  .feature:nth-of-type(even) .feature-text { order: 2; }
+  .feature-text h3 { margin-bottom: 0.75rem; }
+  .feature-text ul { margin: 0; padding-left: 1.2rem; max-width: var(--measure); }
+  .feature-text li { margin-bottom: 0.35rem; }
+  .feature figure { margin: 0; }
+  .feature figure img {
+    border: 1px solid var(--line); border-radius: 0.4rem;
+    max-height: 34rem; width: 100%; object-fit: cover; object-position: top;
+    background: #fff;
+  }
+  .feature figcaption { font-size: 0.88rem; color: var(--muted); margin-top: 0.6rem; }
+
+  /* ---------- Setup steps (a real sequence) ---------- */
+  .setup { background: var(--wash); }
+  .steps { list-style: none; counter-reset: step; margin: 0; padding: 0;
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr)); gap: 2rem 2.5rem; }
+  .steps li { counter-increment: step; position: relative; padding-top: 3.1rem; }
+  .steps li::before {
+    content: counter(step); position: absolute; top: 0; left: 0;
+    width: 2.3rem; height: 2.3rem; border-radius: 50%;
+    display: grid; place-items: center;
+    font-family: var(--serif); font-weight: 700; font-size: 1.15rem;
+    background: var(--navy); color: #fff;
+  }
+  .steps h3 { font-size: 1.15rem; margin-bottom: 0.4rem; }
+  .steps p { font-size: 0.98rem; color: var(--muted); }
+  .setup .after { margin-top: 2.5rem; }
+
+  /* ---------- Free and open ---------- */
+  .open { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 2.5rem 4rem; }
+  .facts { margin: 0; display: grid; grid-template-columns: max-content 1fr; gap: 0.6rem 1.5rem; align-content: start; }
+  .facts dt { font-weight: 700; color: var(--navy); }
+  .facts dd { margin: 0; }
+
+  footer { border-top: 1px solid var(--line); padding-block: 2rem; font-size: 0.92rem; color: var(--muted); }
+  footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 1rem; }
+
+  @media (max-width: 52rem) {
+    .hero, .feature, .open { grid-template-columns: 1fr; }
+    .feature:nth-of-type(even) .feature-text { order: 0; }
+    .site-nav { gap: 1rem; }
+  }
+  @media (max-width: 34rem) {
+    .terms { grid-template-columns: 1fr; }
+    .site-header { flex-direction: column; align-items: flex-start; }
+  }
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<div class="top">
+  <header class="wrap site-header">
+    <a class="brand" href="./"><img src="assets/icon-128x128.png" alt="" width="40" height="40">Catalogist</a>
+    <nav class="site-nav" aria-label="Main">
+      <a href="#features">Features</a>
+      <a href="#setup">Get started</a>
+      <a href="https://github.com/russtino/Catalogist">Source code</a>
+    </nav>
+  </header>
+
+  <div class="wrap hero">
+    <div>
+      <h1>Your college's programs and courses, published from one place</h1>
+      <p class="lede">Catalogist is a free WordPress plugin for <strong>community and technical colleges</strong>. Enter each course and program once, and your program maps, course pages and program lists stay in sync.</p>
+      <div class="actions">
+        <a class="button primary" href="https://github.com/russtino/Catalogist/releases/latest">Download Catalogist</a>
+        <a class="button secondary" href="getting-started/">Read the getting-started guide</a>
+      </div>
+      <p class="fine">Free and open source. Works with any WordPress theme.</p>
+    </div>
+
+    <!-- A working miniature of the Program Map block, with its pathway switcher. -->
+    <div class="demo" id="demo">
+      <p class="demo-title">Information Technology</p>
+      <p class="demo-credential">Associate of Applied Science, final year</p>
+
+      <div class="switcher" role="group" aria-label="Pathway">
+        <span class="switcher-label" aria-hidden="true">Pathway:</span>
+        <button type="button" data-pathway="" aria-pressed="true">All</button>
+        <button type="button" data-pathway="software" aria-pressed="false">Software</button>
+        <button type="button" data-pathway="networking" aria-pressed="false">Networking</button>
+      </div>
+      <p class="pathway-note" aria-live="polite">Shared courses, then each pathway's own.</p>
+
+      <div class="terms">
+        <table class="term">
+          <caption>Semester 3</caption>
+          <thead><tr><th scope="col">Course</th><th scope="col">Title</th><th scope="col">Cr</th></tr></thead>
+          <tbody>
+            <tr><td>ITC 210</td><td>Database Design</td><td>3</td></tr>
+            <tr><td>ITC 215</td><td>Web Programming</td><td>3</td></tr>
+            <tr class="choice"><td></td><td>Choose 1 communication course<small>SP 100 or SP 200</small></td><td>3</td></tr>
+          </tbody>
+          <tfoot><tr><th scope="row" colspan="2">Term total</th><td>9</td></tr></tfoot>
+        </table>
+
+        <table class="term">
+          <caption>Semester 4</caption>
+          <thead><tr><th scope="col">Course</th><th scope="col">Title</th><th scope="col">Cr</th></tr></thead>
+          <tbody>
+            <tr><td>ITC 250</td><td>Capstone Project</td><td>3</td></tr>
+          </tbody>
+          <tbody data-pathway="software">
+            <tr class="group"><th colspan="3" scope="colgroup">Software pathway</th></tr>
+            <tr><td>ITC 260</td><td>Mobile Development</td><td>3</td></tr>
+            <tr><td>ITC 265</td><td>Cloud Applications</td><td>3</td></tr>
+          </tbody>
+          <tbody data-pathway="networking">
+            <tr class="group"><th colspan="3" scope="colgroup">Networking pathway</th></tr>
+            <tr><td>NET 220</td><td>Routing and Switching</td><td>3</td></tr>
+            <tr><td>NET 230</td><td>Network Security</td><td>4</td></tr>
+          </tbody>
+          <tfoot><tr><th scope="row" colspan="2">Term total</th><td data-totals='{"":"9–10","software":"9","networking":"10"}'>9–10</td></tr></tfoot>
+        </table>
+      </div>
+
+      <p class="demo-total" data-totals='{"":"Final year: Software 18 credits, Networking 19 credits","software":"Final year, Software pathway: 18 credits","networking":"Final year, Networking pathway: 19 credits"}'>Final year: Software 18 credits, Networking 19 credits</p>
+      <p class="demo-caption">A live example of the Program Map block. Try the pathway buttons.</p>
+    </div>
+  </div>
+</div>
+
+<main id="main">
+  <section id="features">
+    <div class="wrap">
+      <div class="intro">
+        <h2>Built around how colleges plan programs</h2>
+        <p>Credentials, semesters, electives, pathways and prerequisites are part of the plugin, not something you rebuild with page layouts and tables.</p>
+      </div>
+
+      <div class="feature">
+        <div class="feature-text">
+          <h3>Program pages that explain themselves</h3>
+          <ul>
+            <li>Every credential a program offers, with its length, credits and description</li>
+            <li>Semester-by-semester maps, with tabs for each credential</li>
+            <li>Pathways students can switch between, with totals that follow</li>
+            <li>Optional outcomes, careers, certifications and enrollment notices</li>
+          </ul>
+        </div>
+        <figure>
+          <img src="assets/screenshot-1.png" alt="A program page showing credentials, pathway descriptions and a semester-by-semester map with credential tabs and a pathway switcher." loading="lazy" width="1600" height="1629">
+          <figcaption>A program page, with nothing laid out by hand.</figcaption>
+        </figure>
+      </div>
+
+      <div class="feature">
+        <div class="feature-text">
+          <h3>A map editor that knows the rules</h3>
+          <ul>
+            <li>Choice slots for electives, including lecture and lab pairs</li>
+            <li>General education templates you build once and apply anywhere</li>
+            <li>Warnings when a course comes before its prerequisite or the credits don't add up</li>
+          </ul>
+        </div>
+        <figure>
+          <img src="assets/screenshot-4.png" alt="The map editor with four semesters, choice slots, course groups, Web and Cloud and Cybersecurity pathway groups, and a scheduling note." loading="lazy" width="1600" height="1619">
+          <figcaption>Building a map with shared courses and two pathways.</figcaption>
+        </figure>
+      </div>
+
+      <div class="feature">
+        <div class="feature-text">
+          <h3>Programs students can actually find</h3>
+          <ul>
+            <li>Search and filter programs by credential, career area and delivery</li>
+            <li>A searchable course catalog, filterable by department and program</li>
+            <li>Filtered views keep their address, so you can link straight to "all online certificates"</li>
+          </ul>
+        </div>
+        <figure>
+          <img src="assets/screenshot-3.png" alt="The Program Finder with a credential and a delivery filter applied, showing six program cards." loading="lazy" width="1600" height="1251">
+          <figcaption>The Program Finder, filtered to on-campus technical certificates.</figcaption>
+        </figure>
+      </div>
+
+      <div class="feature">
+        <div class="feature-text">
+          <h3>Start from the spreadsheet you already have</h3>
+          <ul>
+            <li>Import CSV or Excel files, even with titles above the column headers</li>
+            <li>Match your columns once; Catalogist remembers them</li>
+            <li>Preview every row first, and re-import later to update instead of duplicate</li>
+          </ul>
+          <p><a href="downloads/harmon-ridge-catalog.xlsx">Download a sample catalog spreadsheet</a> (a fictional college's courses, programs and maps)</p>
+        </div>
+        <figure>
+          <img src="assets/screenshot-6.png" alt="The course import screen matching spreadsheet columns to course fields, with departments chosen by course prefix." loading="lazy" width="1600" height="1956">
+          <figcaption>Matching spreadsheet columns during a course import.</figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <section class="setup" id="setup">
+    <div class="wrap">
+      <div class="intro">
+        <h2>From install to a published catalog</h2>
+        <p>The getting-started guide walks through each step with screenshots.</p>
+      </div>
+      <ol class="steps">
+        <li>
+          <h3>Install the plugin</h3>
+          <p>Upload Catalogist under Plugins, then activate it. It adds a Catalogist menu to your dashboard.</p>
+        </li>
+        <li>
+          <h3>Import your courses</h3>
+          <p>Bring in your course spreadsheet, match its columns and file courses into departments by prefix.</p>
+        </li>
+        <li>
+          <h3>Build your programs</h3>
+          <p>Add each program's credentials, then lay out its semesters, electives and pathways in the map editor.</p>
+        </li>
+        <li>
+          <h3>Publish your Programs page</h3>
+          <p>Add the Program Finder to a page and choose it in Catalogist's settings.</p>
+        </li>
+      </ol>
+      <p class="after"><a class="button primary" href="getting-started/">Read the getting-started guide</a></p>
+    </div>
+  </section>
+
+  <section id="open">
+    <div class="wrap open">
+      <div>
+        <h2>Free, and yours to keep</h2>
+        <p style="margin-top:1rem">Catalogist is open source under the GPL, like WordPress itself. Your programs and courses live in your own WordPress database, and nothing is sent anywhere else.</p>
+        <p>Found a problem or have an idea? <a href="https://github.com/russtino/Catalogist/issues">Open an issue on GitHub</a>.</p>
+      </div>
+      <dl class="facts">
+        <dt>Requires</dt><dd>WordPress 6.6 or newer, PHP 7.4 or newer</dd>
+        <dt>Themes</dt><dd>Block and classic themes</dd>
+        <dt>Accessibility</dt><dd>Keyboard-operable tabs and filters, captioned tables, screen-reader announcements</dd>
+        <dt>License</dt><dd>GPL v2 or later</dd>
+      </dl>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>Catalogist, a WordPress plugin for college catalogs.</span>
+    <span><a href="https://github.com/russtino/Catalogist">Source code on GitHub</a></span>
+  </div>
+</footer>
+
+<script>
+  // Pathway switcher for the hero demo, mirroring the plugin's own behavior.
+  (function () {
+    var demo = document.getElementById('demo');
+    if (!demo) return;
+    var buttons = demo.querySelectorAll('.switcher button');
+    var note = demo.querySelector('.pathway-note');
+    var notes = {
+      '': "Shared courses, then each pathway's own.",
+      software: 'Software pathway: building applications for mobile and the cloud.',
+      networking: 'Networking pathway: designing and securing the networks software runs on.'
+    };
+
+    function select(id) {
+      buttons.forEach(function (b) {
+        b.setAttribute('aria-pressed', b.getAttribute('data-pathway') === id ? 'true' : 'false');
+      });
+      demo.querySelectorAll('tbody[data-pathway]').forEach(function (group) {
+        group.hidden = id !== '' && group.getAttribute('data-pathway') !== id;
+      });
+      demo.querySelectorAll('[data-totals]').forEach(function (el) {
+        var texts = JSON.parse(el.getAttribute('data-totals'));
+        el.textContent = id in texts ? texts[id] : texts[''];
+      });
+      note.textContent = notes[id];
+    }
+
+    buttons.forEach(function (b) {
+      b.addEventListener('click', function () { select(b.getAttribute('data-pathway')); });
+    });
+  })();
+</script>
+</body>
+</html>

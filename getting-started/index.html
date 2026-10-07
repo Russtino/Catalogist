@@ -1,0 +1,344 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Getting started with Catalogist</title>
+<meta name="description" content="Set up Catalogist step by step: departments, course import, programs, program maps, pathways and the Programs page.">
+<link rel="icon" href="../assets/icon-128x128.png">
+<link rel="canonical" href="https://russtino.github.io/Catalogist/getting-started/">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,400;0,600;0,700;1,400&family=Source+Serif+4:opsz,wght@8..60,600;8..60,700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #0c1a3f; --teal: #35a9a0; --teal-ink: #0f6e67;
+    --ink: #1d2433; --muted: #556075; --line: #dbe2ea; --wash: #f2f5f9;
+    --serif: "Source Serif 4", Georgia, "Times New Roman", serif;
+    --sans: "Public Sans", "Segoe UI", system-ui, -apple-system, sans-serif;
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; scroll-padding-top: 1.5rem; }
+  @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+  body { margin: 0; font-family: var(--sans); font-size: 1.0625rem; line-height: 1.65; color: var(--ink); background: #fff; }
+  a { color: var(--teal-ink); text-underline-offset: 0.18em; }
+  a:hover { color: var(--navy); }
+  :focus-visible { outline: 3px solid var(--teal); outline-offset: 3px; border-radius: 2px; }
+  img { max-width: 100%; height: auto; display: block; }
+  code { font-size: 0.92em; background: var(--wash); padding: 0.1em 0.35em; border-radius: 3px; }
+  .skip { position: absolute; left: 1rem; top: -4rem; background: #fff; color: var(--navy); padding: 0.5rem 1rem; z-index: 10; }
+  .skip:focus { top: 1rem; }
+  .wrap { width: min(72rem, 100% - 2.5rem); margin-inline: auto; }
+
+  .top { background: var(--navy); color: #fff; }
+  .site-header { display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding-block: 1.25rem; flex-wrap: wrap; }
+  .brand { display: inline-flex; align-items: center; gap: 0.7rem; color: #fff; text-decoration: none; font-family: var(--serif); font-weight: 700; font-size: 1.4rem; }
+  .brand img { width: 2.4rem; height: 2.4rem; border-radius: 0.45rem; }
+  .site-nav { display: flex; gap: 1.5rem; flex-wrap: wrap; }
+  .site-nav a { color: #dfe7f2; text-decoration: none; font-weight: 600; font-size: 0.97rem; }
+  .site-nav a:hover, .site-nav a[aria-current] { color: #fff; text-decoration: underline; }
+  .page-title { padding-block: 1.5rem 3rem; }
+  .page-title h1 { font-family: var(--serif); font-size: clamp(2.2rem, 1.5rem + 2.6vw, 3.2rem); line-height: 1.1; margin: 0 0 0.75rem; }
+  .page-title p { margin: 0; color: #d8e1ee; max-width: 40rem; font-size: 1.12rem; }
+
+  .layout { display: grid; grid-template-columns: 15rem minmax(0, 1fr); gap: 3.5rem; padding-block: 3rem 5rem; }
+  .toc { position: sticky; top: 1.5rem; align-self: start; font-size: 0.95rem; }
+  .toc h2 { font-family: var(--sans); font-size: 0.82rem; letter-spacing: 0.04em; color: var(--muted); margin: 0 0 0.6rem; }
+  .toc ol { list-style: none; margin: 0; padding: 0; border-left: 2px solid var(--line); }
+  .toc li a { display: block; padding: 0.3rem 0 0.3rem 0.9rem; margin-left: -2px; border-left: 2px solid transparent; color: var(--ink); text-decoration: none; line-height: 1.35; }
+  .toc li a:hover { border-left-color: var(--teal); color: var(--teal-ink); }
+
+  .guide { max-width: 46rem; }
+  .guide h2 { font-family: var(--serif); font-size: clamp(1.55rem, 1.25rem + 1vw, 2rem); line-height: 1.2; color: var(--navy); margin: 3.5rem 0 1rem; padding-top: 1.5rem; border-top: 1px solid var(--line); }
+  .guide h2:first-child { margin-top: 0; padding-top: 0; border-top: 0; }
+  .guide p, .guide ul, .guide ol { margin: 0 0 1rem; }
+  .guide li { margin-bottom: 0.35rem; }
+  .guide li > ul { margin-top: 0.4rem; }
+  .guide strong { color: var(--navy); }
+
+  .guide figure { margin: 1.75rem 0 2rem; }
+  .guide figure img { border: 1px solid var(--line); border-radius: 0.4rem; background: #fff; }
+  .guide figure.narrow { max-width: 22rem; }
+  .guide figcaption { font-size: 0.9rem; color: var(--muted); margin-top: 0.6rem; }
+
+  footer { border-top: 1px solid var(--line); padding-block: 2rem; font-size: 0.92rem; color: var(--muted); }
+  footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 1rem; }
+
+  @media (max-width: 56rem) {
+    .layout { grid-template-columns: 1fr; gap: 1.5rem; }
+    .toc { position: static; }
+  }
+  @media print {
+    .top, .toc, footer, .skip { display: none; }
+    .layout { display: block; padding: 0; }
+    .guide figure { break-inside: avoid; }
+  }
+</style>
+</head>
+<body>
+<a class="skip" href="#guide">Skip to the guide</a>
+
+<div class="top">
+  <header class="wrap site-header">
+    <a class="brand" href="../"><img src="../assets/icon-128x128.png" alt="" width="40" height="40">Catalogist</a>
+    <nav class="site-nav" aria-label="Main">
+      <a href="../#features">Features</a>
+      <a href="./" aria-current="page">Getting started</a>
+      <a href="https://github.com/russtino/Catalogist">Source code</a>
+    </nav>
+  </header>
+  <div class="wrap page-title">
+    <h1>Getting started with Catalogist</h1>
+    <p>From a fresh install to published program pages and a searchable Programs page, one step at a time.</p>
+  </div>
+</div>
+
+<div class="wrap layout">
+  <nav class="toc" aria-labelledby="toc-title">
+    <h2 id="toc-title">On this page</h2>
+    <ol><li><a href="#before">Before you start</a></li><li><a href="#departments">Step 1: Departments and course prefixes</a></li><li><a href="#import">Step 2: Import your courses</a></li><li><a href="#courses">Step 3: Review and publish courses</a></li><li><a href="#template">Step 4 (optional): Build a general education template</a></li><li><a href="#program">Step 5: Create a program</a></li><li><a href="#map">Step 6: Build the program map</a></li><li><a href="#pathways">Step 7 (optional): Add pathways</a></li><li><a href="#layout">Step 8: Lay out the program page</a></li><li><a href="#programs-page">Step 9: Set up the Programs page</a></li><li><a href="#course-catalog">Step 10 (optional): Add a course catalog page</a></li><li><a href="#troubleshooting">Troubleshooting</a></li></ol>
+  </nav>
+  <main class="guide" id="guide">
+<h2 id="before">Before you start</h2>
+<p>Catalogist turns WordPress into your college's program and course catalog. You enter each course and program once, and every page that shows them stays in sync: change a course's credits, and every program map that includes it updates.</p>
+<p>This guide takes you from a fresh install to a finished program page and a searchable list of programs. Steps marked optional can be skipped and done later. The screenshots use Harmon Ridge Technical College, a fictional college whose <a href="../downloads/harmon-ridge-catalog.xlsx">sample catalog</a> you can download and import to follow along.</p>
+<p><strong>You'll need</strong></p>
+<ul>
+<li>WordPress 6.6 or newer, with Catalogist installed and activated</li>
+<li>An account with the Administrator or Editor role (importing courses requires one of these)</li>
+<li>Your course list as a spreadsheet (CSV or Excel), if you'd like to import rather than type courses in</li>
+</ul>
+<p><strong>What Catalogist adds</strong></p>
+<p>Everything lives under the <strong>Catalogist</strong> menu in your dashboard: Programs, Courses, Credential Types, Departments, Career Areas, Delivery Modes, Map Templates, Import Courses and Settings. It also adds a <strong>Catalogist</strong> category of blocks for building program, course and catalog pages.</p>
+<h2 id="departments">Step 1: Departments and course prefixes</h2>
+<p>Departments group your programs and courses. Each department can also claim <strong>course prefixes</strong>, the letters a course code starts with, so courses are filed automatically. For example, if Computer Information Systems claims CIS and NET, every course whose code starts with CIS or NET lands in that department.</p>
+<ol>
+<li>Go to <strong>Catalogist → Departments</strong>.</li>
+<li>Enter a department name, such as Computer Information Systems.</li>
+<li>In <strong>Course prefixes</strong>, enter the prefixes that belong to it, separated by commas: <code>CIS, NET</code>.</li>
+<li>Click <strong>Add New Department</strong>, and repeat for each department. A General Education department for shared courses (English, math, sciences) is often useful.</li>
+</ol>
+<p>Each prefix belongs to one department. Giving a prefix to a second department moves it there.</p>
+<figure><a href="../assets/guide/step-1-departments.png"><img src="../assets/guide/step-1-departments.png" alt="The Departments screen: the Course prefixes field on the left, and each department's prefixes in the list." width="1600" height="806" loading="lazy"></a><figcaption>The Departments screen: the Course prefixes field on the left, and each department's prefixes in the list.</figcaption></figure>
+
+<p><strong>Tip:</strong> You can skip this step and set prefixes during the import instead (see step 2). Your choices there are saved to the departments the same way.</p>
+<h2 id="import">Step 2: Import your courses</h2>
+<p>If your courses are in a spreadsheet, import them all at once instead of entering them one by one. Your file can be CSV or Excel (.xlsx), with one course per row.</p>
+<p><strong>Choose the file</strong></p>
+<ol>
+<li>Go to <strong>Catalogist → Import Courses</strong> and choose your file. It's read in your browser, and nothing is saved until you confirm the import.</li>
+<li>If your workbook has several sheets, choose the one with your courses under <strong>Sheet</strong>.</li>
+</ol>
+<p><strong>Match columns to course fields</strong></p>
+<ol>
+<li>Check the <strong>Header row</strong>: the row with your column names. Catalogist finds it automatically, skipping titles or dates above it. If it guessed wrong, choose the right row.</li>
+<li>For each course field, choose the spreadsheet column it comes from. Columns are labeled with their letter, as in a spreadsheet ("C: Course Title"), and common names like "Cr Hrs" or "Prereqs" are matched for you. The <strong>First course row</strong> column shows a value from your file so you can check each match.<ul>
+<li><strong>Course code</strong> and <strong>Title</strong> are required.</li>
+<li>If your codes are split across two columns, like "CIS" and "220", match the letters to <strong>Subject prefix</strong>.</li>
+<li><strong>Prerequisites</strong> can be a list of course codes. Any other wording, like "or instructor permission", is kept as a prerequisite note.</li>
+</ul>
+</li>
+<li>Under <strong>Departments by course prefix</strong>, choose a department for each prefix in your file, or add a new department. These choices are remembered.</li>
+<li>Choose whether <strong>new courses</strong> are saved as drafts for review or published immediately, and whether <strong>courses that already exist</strong> (same course code) are updated or left unchanged.</li>
+</ol>
+<figure><a href="../assets/screenshot-6.png"><img src="../assets/screenshot-6.png" alt="Matching columns to course fields, with a department chosen for each course prefix." width="1600" height="1956" loading="lazy"></a><figcaption>Matching columns to course fields, with a department chosen for each course prefix.</figcaption></figure>
+
+<p><strong>Preview and import</strong></p>
+<ol>
+<li>Click <strong>Preview import</strong>. Every row is listed as Create, Update, Skip or Error, with the reason.</li>
+<li>If a course code appears on more than one row, choose which row to import, or none of them. The import can't start until each duplicate is decided.</li>
+<li>Click the <strong>Import</strong> button and keep the page open until it finishes.</li>
+</ol>
+<figure><a href="../assets/guide/step-2-preview.png"><img src="../assets/guide/step-2-preview.png" alt="The preview: counts for each action, a duplicate course code to decide, and every row with its department and prerequisites." width="1600" height="1160" loading="lazy"></a><figcaption>The preview: counts for each action, a duplicate course code to decide, and every row with its department and prerequisites.</figcaption></figure>
+
+<p>The summary lists what was created, updated and skipped. Prerequisite codes that didn't match any course are listed too and kept in the course's notes, so nothing is lost; import the missing courses and run the import again to link them.</p>
+<figure><a href="../assets/guide/step-2-complete.png"><img src="../assets/guide/step-2-complete.png" alt="The import summary, with two prerequisites that didn't match a course and one row that wasn't imported." width="1600" height="728" loading="lazy"></a><figcaption>The import summary, with two prerequisites that didn't match a course and one row that wasn't imported.</figcaption></figure>
+
+<p><strong>Tip:</strong> Re-importing an updated spreadsheet later updates your existing courses rather than duplicating them.</p>
+<h2 id="courses">Step 3: Review and publish courses</h2>
+<p>If you imported courses as drafts, review them before publishing. <strong>Draft courses never appear on your public site</strong>, including in program maps, so publish them once they look right.</p>
+<p><strong>Find courses</strong></p>
+<p>Go to <strong>Catalogist → Courses</strong>. The list shows each course's code, credits, department and the programs that use it. Use the filters above the list to narrow it:</p>
+<ul>
+<li><strong>All departments</strong>: one department's courses</li>
+<li><strong>All programs</strong>: courses in a program's map, or <strong>Not in any program</strong> for courses no map uses yet</li>
+</ul>
+<p>To publish several at once, tick them, choose <strong>Edit</strong> under Bulk actions, set <strong>Status</strong> to Published and click <strong>Update</strong>.</p>
+<p><strong>Edit a course</strong></p>
+<p>Open a course to check or change its details in the <strong>Course Details</strong> panel of the editor sidebar:</p>
+<ul>
+<li>Course code and credit hours</li>
+<li>Lecture, lab and contact hours (optional; click the line to show them)</li>
+<li>Course description</li>
+<li>Prerequisites: start typing a course code or title and pick from the list</li>
+<li>Prerequisite notes, for anything the list can't express, such as "or instructor permission"</li>
+</ul>
+<p>The course page shows these automatically, through the <strong>Course Info</strong> and <strong>Course Description</strong> blocks.</p>
+<figure><a href="../assets/guide/step-3-course-page.png"><img src="../assets/guide/step-3-course-page.png" alt="A course page: Course Info with hours and a linked prerequisite, followed by the description." width="1200" height="703" loading="lazy"></a><figcaption>A course page: Course Info with hours and a linked prerequisite, followed by the description.</figcaption></figure>
+
+<p><strong>Adding a course by hand</strong></p>
+<p>Go to <strong>Catalogist → Courses → Add New Course</strong>, enter the title and fill in Course Details. If its code starts with a prefix a department claims, it's filed in that department automatically.</p>
+<h2 id="template">Step 4 (optional): Build a general education template</h2>
+<p>Most associate degrees share the same general education requirements. Build them once as a <strong>map template</strong>, then apply the template to each program's map instead of re-entering them.</p>
+<ol>
+<li>Go to <strong>Catalogist → Map Templates → Add New Map Template</strong>, and give it a name such as "AAS General Education".</li>
+<li>In the <strong>Template map</strong> box, click <strong>Create map</strong>. The map editor opens; it works exactly as described in step 6.</li>
+<li>Add terms and place the general education courses and choice slots in the semesters they're usually taken.</li>
+<li>Click <strong>Done</strong>, then <strong>Publish</strong>. Publishing is what saves the template.</li>
+</ol>
+<figure><a href="../assets/guide/step-4-template.png"><img src="../assets/guide/step-4-template.png" alt="A general education template with English courses and choice slots across four semesters." width="1220" height="554" loading="lazy"></a><figcaption>A general education template with English courses and choice slots across four semesters.</figcaption></figure>
+
+<p>You'll apply the template in step 6. Applying it copies its entries into a program's map, so each program can then be adjusted on its own. Changing the template later doesn't change maps it was already applied to.</p>
+<h2 id="program">Step 5: Create a program</h2>
+<ol>
+<li>Go to <strong>Catalogist → Add New Program</strong> and enter the program's name as the title.</li>
+<li>Type an overview in the first paragraph. New programs start with a ready-made layout below it (see step 8).</li>
+<li>In the editor sidebar, open the <strong>Program</strong> tab and tick the program's details in these panels:<ul>
+<li><strong>Credential Types</strong>: every credential the program offers, such as Associate of Applied Science and Technical Certificate</li>
+<li><strong>Departments</strong>, <strong>Career Areas</strong> and <strong>Delivery Modes</strong>: these power the filters in the Program Finder</li>
+</ul>
+</li>
+</ol>
+<p><strong>Program Details panel</strong></p>
+<p>Everything here is optional, and anything left empty isn't shown on the page:</p>
+<ul>
+<li><strong>Start dates</strong>, such as "August (fall semester)"</li>
+<li><strong>Enrollment notice</strong>, shown prominently on the program page and in the Program Finder, for example "Not accepting applications for Fall 2026."</li>
+<li><strong>CIP code</strong> and <strong>CIP title</strong></li>
+</ul>
+<p><strong>Credentials panel</strong></p>
+<p>Each credential you ticked gets its own section here, with:</p>
+<ul>
+<li><strong>Length</strong>, such as "2 years"</li>
+<li><strong>Short description</strong> (optional), one sentence shown with the credential</li>
+<li><strong>Total credit hours</strong>, which the map editor checks your map against</li>
+<li><strong>Pathways</strong> (optional; see step 7)</li>
+<li>The credential's <strong>program map</strong> (see step 6)</li>
+</ul>
+<figure class="narrow"><a href="../assets/guide/step-5-credentials.png"><img src="../assets/guide/step-5-credentials.png" alt="The Credentials panel: an associate degree with two pathways, and a technical certificate below it." width="555" height="2573" loading="lazy"></a><figcaption>The Credentials panel: an associate degree with two pathways, and a technical certificate below it.</figcaption></figure>
+
+<p>Click <strong>Publish</strong> (or <strong>Save draft</strong>) when you're done.</p>
+<h2 id="map">Step 6: Build the program map</h2>
+<p>Each credential has its own semester-by-semester map. In the <strong>Credentials</strong> panel, click <strong>Create map</strong> (or <strong>Edit map</strong>) under the credential. The map editor opens full screen.</p>
+<figure><a href="../assets/screenshot-4.png"><img src="../assets/screenshot-4.png" alt="The map editor: four semesters with choice slots, two pathway groups, and a scheduling note." width="1600" height="1619" loading="lazy"></a><figcaption>The map editor: four semesters with choice slots, two pathway groups, and a scheduling note.</figcaption></figure>
+
+<p><strong>Terms and courses</strong></p>
+<ol>
+<li>Click <strong>Add term</strong> for each semester. Rename a term by editing its name, and use the arrows beside it to reorder.</li>
+<li>In each term, use <strong>Add a course</strong>: start typing a course code or title and pick it from the list.</li>
+<li>Use the arrows on each entry to move it up or down, or to the previous or next term. The × removes it.</li>
+</ol>
+<p>Each term shows its credit total, and the toolbar shows the map's total. If terms feel cramped, choose fewer under <strong>Terms per row</strong> in the toolbar; your choice is remembered in your browser for every map.</p>
+<p><strong>Choice slots</strong></p>
+<p>For requirements like "choose one communication course", click <strong>Add a choice slot</strong> in the term, then fill in:</p>
+<ul>
+<li><strong>Label</strong>, such as "Choose 1 Communication Course"</li>
+<li><strong>Credits</strong> the slot counts for</li>
+<li><strong>Single-course options</strong>: the courses students can pick from. Leave everything empty for an open choice, like "Any approved humanities course".</li>
+<li><strong>Course groups</strong>, for options taken together, such as a lecture and its lab. Click <strong>Add a course group</strong> and add both courses; each group counts as one option.</li>
+</ul>
+<p>Click <strong>Done</strong> to close the slot, or its pencil button to reopen it.</p>
+<figure class="narrow"><a href="../assets/guide/step-6-choice-slot.png"><img src="../assets/guide/step-6-choice-slot.png" alt="A choice slot with three lecture and lab groups." width="547" height="2178" loading="lazy"></a><figcaption>A choice slot with three lecture and lab groups.</figcaption></figure>
+
+<p><strong>Applying a template</strong></p>
+<p>To add general education requirements from step 4, choose the template in the toolbar's <strong>Choose a template…</strong> list and click <strong>Apply</strong>. Its entries are copied into the matching terms, and courses already in the map are skipped. To take them back out later, choose the template and click <strong>Remove</strong>.</p>
+<p><strong>Checks as you go</strong></p>
+<p>The editor warns you when a course is scheduled in the same term as its prerequisite or before it, when the map doesn't add up to the credential's total credit hours, or when a course isn't published yet.</p>
+<p><strong>Saving</strong></p>
+<p>The map editor's <strong>Done</strong> button only closes the editor. Your map is saved when you click <strong>Update</strong> (or <strong>Publish</strong>) on the program.</p>
+<p><strong>Tip:</strong> For a credential that's mostly a subset of another, such as a certificate drawn from the associate degree's courses, use <strong>Copy map from…</strong> below the empty map, then remove what doesn't apply.</p>
+<h2 id="pathways">Step 7 (optional): Add pathways</h2>
+<p>Pathways are routes students choose between within one credential, for example a Web and Cloud pathway and a Cybersecurity pathway that share their first three semesters. One map holds both: shared courses are entered once, and each pathway's own courses are tagged.</p>
+<p><strong>Create the pathways</strong></p>
+<ol>
+<li>In the <strong>Credentials</strong> panel, open <strong>Pathways (optional)</strong> under the credential.</li>
+<li>Click <strong>Add pathway</strong>, enter its name, and optionally a one-sentence description. Repeat for each pathway.</li>
+</ol>
+<p><strong>Tag courses in the map</strong></p>
+<ol>
+<li>Open the map editor. Each term now groups its entries under <strong>Shared</strong> and each pathway's name.</li>
+<li>To add a course to a pathway, set the term's <strong>Add to</strong> list to that pathway first, then add the course or choice slot.</li>
+<li>To move an existing entry, change the pathway list under it.</li>
+</ol>
+<p>Totals and checks now work per pathway: the toolbar shows each pathway's credits, and a prerequisite warning names the pathway it affects.</p>
+<p><strong>On the program page</strong></p>
+<p>Visitors see a <strong>Pathway</strong> switcher above the map: "All" shows every pathway's courses under labeled groups, and choosing one hides the others and updates the credit totals.</p>
+<figure><a href="../assets/screenshot-2.png"><img src="../assets/screenshot-2.png" alt="One pathway selected: its description appears, the other pathway's courses are hidden, and the totals follow." width="1600" height="1721" loading="lazy"></a><figcaption>One pathway selected: its description appears, the other pathway's courses are hidden, and the totals follow.</figcaption></figure>
+
+<p>Removing a pathway turns its courses into shared ones; nothing is deleted from the map.</p>
+<h2 id="layout">Step 8: Lay out the program page</h2>
+<p>New programs start with a ready-made layout: your overview, then <strong>Program Details</strong>, a "Program Map" heading, the <strong>Program Map</strong>, and three <strong>Program List</strong> blocks for outcomes, careers and certifications. The blocks fill themselves in from what you entered in the sidebar, so you rarely need to change the layout.</p>
+<figure><a href="../assets/screenshot-1.png"><img src="../assets/screenshot-1.png" alt="A finished program page, with nothing laid out by hand." width="1600" height="1629" loading="lazy"></a><figcaption>A finished program page, with nothing laid out by hand.</figcaption></figure>
+
+<p><strong>Outcomes, careers and certifications</strong></p>
+<p>In the sidebar's <strong>Outcomes &amp; Careers</strong> panel, enter program outcomes, careers, certifications graduates earn, and certifications they can also earn, one per line. Each list appears on the page with its heading; an empty list, heading included, doesn't appear at all.</p>
+<p>When pasting a list from a spreadsheet cell, check the first and last lines: Excel wraps a multi-line cell in quotation marks when you copy it.</p>
+<p><strong>Program Map settings</strong></p>
+<p>Select the Program Map block to adjust it in the sidebar:</p>
+<ul>
+<li><strong>Credential</strong>: show every credential's map, or just one</li>
+<li><strong>Show multiple credentials as</strong>: tabs (one map at a time) or stacked</li>
+<li><strong>Semesters per row</strong>: fewer per row gives each semester more room</li>
+<li>Course links and term credit totals can each be turned off</li>
+</ul>
+<p>For more room, set the block's alignment to <strong>Wide</strong> or <strong>Full width</strong> in its toolbar.</p>
+<p><strong>Adding blocks to other pages or older programs</strong></p>
+<p>All Catalogist blocks are in the <strong>Catalogist</strong> category of the block inserter (the <strong>+</strong> button).</p>
+<figure class="narrow"><a href="../assets/guide/step-8-inserter.png"><img src="../assets/guide/step-8-inserter.png" alt="The Catalogist category in the block inserter." width="676" height="760" loading="lazy"></a><figcaption>The Catalogist category in the block inserter.</figcaption></figure>
+
+<p><strong>Tip:</strong> If your theme shows a "Written by" line on program pages, see Troubleshooting.</p>
+<h2 id="programs-page">Step 9: Set up the Programs page</h2>
+<p>The Programs page is where students browse all your programs, with search and filters.</p>
+<p><strong>Create the page</strong></p>
+<ol>
+<li>Go to <strong>Pages → Add New Page</strong> and give it a title, such as "Program Offerings".</li>
+<li>Add the <strong>Program Finder</strong> block from the Catalogist category.</li>
+<li>In the page's settings, set its URL slug, such as <code>program-offerings</code>, and publish.</li>
+</ol>
+<p>The finder lists every published program as a card and adds a search box and filters for credential, career area and delivery mode. Each filter appears only once programs use at least two of its options. In the block's settings you can turn the search box, each filter and the program summaries on or off. Setting the block to <strong>Wide</strong> fits three cards per row.</p>
+<figure><a href="../assets/screenshot-3.png"><img src="../assets/screenshot-3.png" alt="The Program Finder, filtered to on-campus technical certificates." width="1600" height="1251" loading="lazy"></a><figcaption>The Program Finder, filtered to on-campus technical certificates.</figcaption></figure>
+
+<p><strong>Tell Catalogist about the page</strong></p>
+<ol>
+<li>Go to <strong>Catalogist → Settings</strong>.</li>
+<li>Under <strong>Programs page</strong>, choose your page and click <strong>Save Changes</strong>.</li>
+</ol>
+<p>Your page now owns its address, and program pages are nested under it, such as <code>/program-offerings/software-development/</code>. Keep other pages out from under it, since its child pages can't be reached.</p>
+<figure><a href="../assets/guide/step-9-settings.png"><img src="../assets/guide/step-9-settings.png" alt="Catalogist → Settings, with the Programs page chosen and both program addresses shown." width="1900" height="828" loading="lazy"></a><figcaption>Catalogist → Settings, with the Programs page chosen and both program addresses shown.</figcaption></figure>
+
+<p><strong>Tip:</strong> If the address still shows a list titled "Archives: Programs", go to <strong>Settings → Permalinks</strong> and click <strong>Save Changes</strong> once.</p>
+<h2 id="course-catalog">Step 10 (optional): Add a course catalog page</h2>
+<p>The <strong>Course Finder</strong> block shows every published course in one table (code, title, credits and department), sorted by course code.</p>
+<ol>
+<li>Create a page, such as "Course Catalog", and add the <strong>Course Finder</strong> block.</li>
+<li>Visitors can search by code or title ("CIS 220", "cis220" and "testing" all work) and filter by department or program.</li>
+<li>In the block's settings, turn the search box, each filter, the Department column and course links on or off.</li>
+</ol>
+<p>The Program filter also makes a handy link: filter the catalog to one program, copy the page address, and link to it from that program's page to show its full course list.</p>
+<p>In both finders, the chosen filters are kept in the page address, so a filtered view, such as all online certificates, can be bookmarked or linked from another page.</p>
+<h2 id="troubleshooting">Troubleshooting</h2>
+<p><strong>I changed a program map, but the page didn't change.</strong>
+The map editor's <strong>Done</strong> button only closes the editor. Click <strong>Update</strong> on the program to save.</p>
+<p><strong>A course is in the map, but it isn't on the public page.</strong>
+The course is probably still a draft; drafts never appear publicly. Publish it. The map editor lists unpublished courses in its warnings.</p>
+<p><strong>The map's credit total doesn't match the credential's.</strong>
+Check that every course has its credit hours, that each choice slot has credits set, and that no course is missing from the map. The map editor shows both totals, per pathway.</p>
+<p><strong>My theme shows "Written by" or "Posted… by" with no name on program or course pages.</strong>
+That text comes from your theme's template for posts, which expects an author, categories and tags. In a block theme, go to <strong>Appearance → Editor → Templates</strong>, add templates for "Single item: Program" and "Single item: Course", and remove that section from each.</p>
+<p><strong>My Programs page shows "Archives: Programs" instead of my page.</strong>
+Choose your page under <strong>Catalogist → Settings → Programs page</strong>. If it still doesn't show, go to <strong>Settings → Permalinks</strong> and click <strong>Save Changes</strong>.</p>
+<p><strong>I updated Catalogist and my settings are gone.</strong>
+Deleting the plugin removes its settings. To update by hand, upload the new version under <strong>Plugins → Add New → Upload Plugin</strong> and choose <strong>Replace current with uploaded</strong> instead of deleting first. Updates through <strong>Update now</strong> keep your settings.</p>
+<p><strong>What happens to my content if I delete Catalogist?</strong>
+Only its settings are removed; programs, courses and departments stay in case you reinstall. To delete everything, turn on <strong>Remove content</strong> under <strong>Catalogist → Settings</strong> before deleting the plugin. This can't be undone, so back up first.</p>
+  </main>
+</div>
+
+<footer>
+  <div class="wrap">
+    <span>Catalogist, a WordPress plugin for college catalogs.</span>
+    <span><a href="../">Back to the Catalogist home page</a></span>
+  </div>
+</footer>
+</body>
+</html>
