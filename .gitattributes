@@ -1,0 +1,8 @@
+# Keep LF line endings in every text file, on every computer.
+* text=auto eol=lf
+
+# Binary files: never convert.
+*.png binary
+*.jpg binary
+*.zip binary
+*.xlsx binary
