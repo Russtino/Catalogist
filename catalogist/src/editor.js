@@ -4,7 +4,8 @@
  */
 import { __ } from '@wordpress/i18n';
 import { registerPlugin } from '@wordpress/plugins';
-import { useSelect } from '@wordpress/data';
+import { useSelect, useDispatch } from '@wordpress/data';
+import { useEffect } from '@wordpress/element';
 import {
 	PluginDocumentSettingPanel,
 	store as editorStore,
@@ -22,6 +23,15 @@ function CatalogPanels() {
 		( select ) => select( editorStore ).getCurrentPostType(),
 		[]
 	);
+	const { removeEditorPanel } = useDispatch( editorStore );
+
+	// Credentials are chosen at the top of the Credentials panel, so the
+	// separate Credential Types panel would only be a duplicate.
+	useEffect( () => {
+		if ( postType === 'catalogist_program' && removeEditorPanel ) {
+			removeEditorPanel( 'taxonomy-panel-catalogist_credential' );
+		}
+	}, [ postType, removeEditorPanel ] );
 
 	if ( postType === 'catalogist_course' ) {
 		return (

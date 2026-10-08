@@ -4,13 +4,16 @@
  */
 import { __, sprintf } from '@wordpress/i18n';
 import {
+	CheckboxControl,
+	ExternalLink,
 	TextControl,
 	Spinner,
 	__experimentalVStack as VStack,
 } from '@wordpress/components';
+import { addQueryArgs } from '@wordpress/url';
 
 import useMeta from '../hooks/use-meta';
-import useCredentialTerms from '../hooks/use-credential-terms';
+import useCredentialTerms, { useAllCredentialTerms } from '../hooks/use-credential-terms';
 import CreditsControl from './credits-control';
 import ProgramMap from './program-map';
 import PathwaysEditor from './pathways-editor';
@@ -25,19 +28,80 @@ const blankEntry = ( id ) => ( {
 	map: [],
 } );
 
+/**
+ * Checkboxes for every credential type, so choosing a program's credentials
+ * and filling them in happen in one panel. (The separate Credential Types
+ * panel is hidden on programs; see editor.js.)
+ */
+function CredentialChoices() {
+	const { all, selectedIds, setSelected } = useAllCredentialTerms();
+
+	if ( ! all ) {
+		return <Spinner />;
+	}
+
+	const manageUrl = addQueryArgs( 'edit-tags.php', {
+		taxonomy: 'catalogist_credential',
+		post_type: 'catalogist_program',
+	} );
+
+	return (
+		<fieldset className="catalogist-credential-choices">
+			<legend className="catalogist-credential-choices__legend">
+				{ __( 'Credentials this program offers', 'catalogist' ) }
+			</legend>
+			{ all.length ? (
+				all.map( ( term ) => (
+					<CheckboxControl
+						key={ term.id }
+						__nextHasNoMarginBottom
+						label={ term.name }
+						checked={ selectedIds.includes( term.id ) }
+						onChange={ ( checked ) =>
+							setSelected(
+								checked
+									? [ ...selectedIds, term.id ]
+									: selectedIds.filter(
+											( id ) => id !== term.id
+									  )
+							)
+						}
+					/>
+				) )
+			) : (
+				<p className="catalogist-field-hint">
+					{ __( 'No credential types yet.', 'catalogist' ) }
+				</p>
+			) }
+			<ExternalLink href={ manageUrl }>
+				{ __( 'Add or rename credential types', 'catalogist' ) }
+			</ExternalLink>
+		</fieldset>
+	);
+}
+
 export default function CredentialsPanel() {
+	return (
+		<VStack spacing={ 6 }>
+			<CredentialChoices />
+			<CredentialSections />
+		</VStack>
+	);
+}
+
+function CredentialSections() {
 	const [ meta, update ] = useMeta();
 	const terms = useCredentialTerms();
 
 	if ( ! terms ) {
-		return <Spinner />;
+		return null;
 	}
 
 	if ( ! terms.length ) {
 		return (
 			<p className="catalogist-field-hint">
 				{ __(
-					'Select one or more credential types in the Credential Types panel. Each one gets its own length, credits, and program map here.',
+					'Tick each credential the program offers. Each one gets its own length, credits, and program map here.',
 					'catalogist'
 				) }
 			</p>

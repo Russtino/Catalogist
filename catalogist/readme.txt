@@ -50,7 +50,7 @@ All blocks are rendered on the server from your saved information, work with blo
 1. Install and activate Catalogist from Plugins → Add New, or upload the plugin folder to `/wp-content/plugins/`.
 2. Under **Catalogist → Departments**, add your departments and, optionally, their course prefixes.
 3. Add courses by hand under **Catalogist → Courses**, or import them under **Catalogist → Import Courses**.
-4. Create a program under **Catalogist → Programs**. Tick its credential types, then build each credential's map in the **Credentials** panel of the editor sidebar.
+4. Create a program under **Catalogist → Programs**. In the **Credentials** panel of the editor sidebar, tick the credentials it offers, then build each one's map.
 5. Create a page with the **Program Finder** block and choose it as the Programs page under **Catalogist → Settings**.
 
 == Frequently Asked Questions ==

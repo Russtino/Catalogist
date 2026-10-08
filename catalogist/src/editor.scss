@@ -265,3 +265,23 @@
 	margin-bottom: 0;
 	white-space: nowrap;
 }
+
+// Credential checkboxes at the top of the Credentials panel.
+.catalogist-credential-choices {
+	margin: 0;
+	padding: 0;
+	border: 0;
+
+	.components-checkbox-control {
+		margin-bottom: 8px;
+	}
+}
+
+.catalogist-credential-choices__legend {
+	margin-bottom: 8px;
+	padding: 0;
+	font-size: 11px;
+	font-weight: 500;
+	line-height: 1.4;
+	text-transform: uppercase;
+}

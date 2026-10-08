@@ -6,6 +6,7 @@ import { useMemo } from '@wordpress/element';
 import { FormTokenField, Spinner } from '@wordpress/components';
 
 import useCourses from '../hooks/use-courses';
+import tabToSelect from './tab-to-select';
 
 const MISSING = /^#(\d+) /;
 
@@ -57,17 +58,19 @@ export default function CoursePicker( { label, help, value, onChange, exclude = 
 			suggestions={ [ ...idByLabel.keys() ] }
 			onChange={ handleChange }
 			__experimentalExpandOnFocus
+			__experimentalAutoSelectFirstMatch
 			__experimentalValidateInput={ ( text ) => idByLabel.has( text ) }
 			__experimentalShowHowTo={ false }
 		/>
 	);
 
-	return help ? (
-		<div>
+	// Tab, like Enter, adds the highlighted course.
+	return (
+		<div onKeyDownCapture={ tabToSelect }>
 			{ field }
-			<p className="components-form-token-field__help">{ help }</p>
+			{ help && (
+				<p className="components-form-token-field__help">{ help }</p>
+			) }
 		</div>
-	) : (
-		field
 	);
 }

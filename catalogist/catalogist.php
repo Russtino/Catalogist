@@ -5,8 +5,9 @@
  * Version:           1.0.0
  * Requires at least: 6.6
  * Requires PHP:      7.4
- * Author:            Russell
- * Plugin URI:        https://wordpress.org/plugins/catalogist/
+ * Author:            Russtino
+ * Author URI:        https://profiles.wordpress.org/russtino/
+ * Plugin URI:        https://russtino.github.io/Catalogist/
  * License:           GPL-2.0-or-later
  * License URI:       https://www.gnu.org/licenses/gpl-2.0.html
  * Text Domain:       catalogist

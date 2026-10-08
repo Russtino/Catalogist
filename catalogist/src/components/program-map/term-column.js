@@ -21,6 +21,7 @@ import {
 } from '@wordpress/icons';
 
 import CoursePicker from '../course-picker';
+import tabToSelect from '../tab-to-select';
 import CreditsControl from '../credits-control';
 import {
 	termName,
@@ -614,17 +615,28 @@ export default function TermColumn( {
 					onChange={ setTarget }
 				/>
 			) }
-			<ComboboxControl
-				__nextHasNoMarginBottom
-				__next40pxDefaultSize
-				label={ __( 'Add a course', 'catalogist' ) }
-				options={ addOptions }
-				value={ null }
-				onChange={ ( value ) =>
-					value &&
-					actions.addCourse( index, parseInt( value, 10 ), addTo )
-				}
-			/>
+			{ /* Tab, like Enter, adds the highlighted course. */ }
+			<div onKeyDownCapture={ tabToSelect }>
+				<ComboboxControl
+					__nextHasNoMarginBottom
+					__next40pxDefaultSize
+					label={ __( 'Add a course', 'catalogist' ) }
+					help={
+						index === 0
+							? __(
+									'Type a code or title, then press Enter or Tab to add the highlighted course.',
+									'catalogist'
+							  )
+							: undefined
+					}
+					options={ addOptions }
+					value={ null }
+					onChange={ ( value ) =>
+						value &&
+						actions.addCourse( index, parseInt( value, 10 ), addTo )
+					}
+				/>
+			</div>
 			<Button
 				variant="link"
 				icon={ plus }

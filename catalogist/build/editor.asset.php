@@ -9,7 +9,8 @@
 		'wp-html-entities',
 		'wp-i18n',
 		'wp-plugins',
-		'wp-primitives'
+		'wp-primitives',
+		'wp-url'
 	),
-	'version' => 'c547a3aec8dffb770a67'
+	'version' => '1e3936c0a641145971e6'
 );
