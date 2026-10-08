@@ -1,0 +1,24 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "catalogist/course-info",
+	"version": "1.0.0",
+	"title": "Course Info",
+	"category": "catalogist",
+	"icon": "book-alt",
+	"description": "Shows a course's code, credit hours, and prerequisites.",
+	"keywords": [ "prerequisites", "credits", "course code" ],
+	"textdomain": "catalogist",
+	"usesContext": [ "postId", "postType" ],
+	"attributes": {
+		"linkPrerequisites": { "type": "boolean", "default": true }
+	},
+	"supports": {
+		"html": false,
+		"spacing": { "margin": true, "padding": true },
+		"typography": { "fontSize": true }
+	},
+	"editorScript": "catalogist-blocks",
+	"style": "catalogist-blocks",
+	"render": "file:./render.php"
+}

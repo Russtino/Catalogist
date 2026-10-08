@@ -1,0 +1,182 @@
+.catalogist-import {
+	max-width: 1100px;
+	margin-top: 16px;
+
+	h2 {
+		margin: 0;
+		font-size: 1.2em;
+	}
+}
+
+.catalogist-import-mapping {
+	th[scope="row"] {
+		width: 34%;
+		font-weight: 600;
+
+		.description {
+			margin: 4px 0 0;
+			font-weight: 400;
+		}
+	}
+
+	td {
+		vertical-align: top;
+	}
+}
+
+.catalogist-import-required {
+	color: #757575;
+	font-weight: 400;
+}
+
+.catalogist-import-sample {
+	color: #50575e;
+	max-width: 280px;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+.catalogist-import-counts {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 12px;
+	margin: 0;
+	padding: 0;
+	list-style: none;
+
+	li {
+		margin: 0;
+		padding: 8px 14px;
+		border-left: 4px solid #c3c4c7;
+		background: #f6f7f7;
+	}
+
+	strong {
+		font-size: 1.3em;
+	}
+}
+
+.catalogist-import-scroll {
+	max-height: 480px;
+	overflow: auto;
+	border: 1px solid #c3c4c7;
+}
+
+.catalogist-import-preview {
+	border: 0;
+
+	thead th {
+		position: sticky;
+		top: 0;
+		background: #fff;
+		box-shadow: 0 1px 0 #c3c4c7;
+	}
+}
+
+.catalogist-import-badge {
+	display: inline-block;
+	padding: 2px 8px;
+	border-radius: 2px;
+	background: #f0f0f1;
+	font-weight: 600;
+}
+
+.catalogist-import-counts li.is-create,
+.catalogist-import-badge.is-create {
+	border-color: #00a32a;
+}
+
+.catalogist-import-badge.is-create {
+	background: #edfaef;
+	color: #00631a;
+}
+
+.catalogist-import-counts li.is-update,
+.catalogist-import-badge.is-update {
+	border-color: #2271b1;
+}
+
+.catalogist-import-badge.is-update {
+	background: #f0f6fc;
+	color: #135e96;
+}
+
+.catalogist-import-counts li.is-error,
+.catalogist-import-badge.is-error {
+	border-color: #d63638;
+}
+
+.catalogist-import-badge.is-error {
+	background: #fcf0f1;
+	color: #8a2424;
+}
+
+.catalogist-import-progress {
+	width: 100%;
+	height: 20px;
+}
+
+.catalogist-import-duplicates {
+	padding: 12px 16px;
+	border-left: 4px solid #dba617;
+	background: #fcf9e8;
+
+	h3 {
+		margin: 0 0 4px;
+	}
+
+	p {
+		margin: 0 0 12px;
+	}
+}
+
+.catalogist-import-duplicate-list {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+	gap: 16px 24px;
+	margin-top: 12px;
+
+	.components-base-control__label,
+	.components-radio-control legend {
+		font-weight: 600;
+	}
+}
+
+.catalogist-import-counts li.is-duplicate,
+.catalogist-import-badge.is-duplicate {
+	border-color: #dba617;
+}
+
+.catalogist-import-badge.is-duplicate {
+	background: #fcf9e8;
+	color: #614200;
+}
+
+.catalogist-import-prefixes {
+	h3 {
+		margin: 0 0 4px;
+	}
+
+	> .description {
+		margin: 0 0 12px;
+	}
+}
+
+.catalogist-import-prefix-table {
+	max-width: 640px;
+
+	th[scope="row"] {
+		font-weight: 600;
+		width: 25%;
+	}
+
+	td {
+		vertical-align: middle;
+	}
+}
+
+.catalogist-import-add-department {
+	max-width: 640px;
+	margin-top: 12px;
+}

@@ -1,0 +1,21 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "catalogist/program-details",
+	"version": "1.0.0",
+	"title": "Program Details",
+	"category": "catalogist",
+	"icon": "welcome-learn-more",
+	"description": "Shows a program's credential, length, credits, department, and delivery mode.",
+	"keywords": [ "credential", "degree", "certificate", "credits" ],
+	"textdomain": "catalogist",
+	"usesContext": [ "postId", "postType" ],
+	"supports": {
+		"html": false,
+		"spacing": { "margin": true, "padding": true },
+		"typography": { "fontSize": true }
+	},
+	"editorScript": "catalogist-blocks",
+	"style": "catalogist-blocks",
+	"render": "file:./render.php"
+}

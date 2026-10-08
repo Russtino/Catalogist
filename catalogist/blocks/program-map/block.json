@@ -1,0 +1,58 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "catalogist/program-map",
+	"version": "1.0.0",
+	"title": "Program Map",
+	"category": "catalogist",
+	"icon": "calendar-alt",
+	"description": "Shows each credential's courses term by term, with credit totals.",
+	"keywords": [ "semester", "curriculum", "courses", "degree plan" ],
+	"textdomain": "catalogist",
+	"usesContext": [
+		"postId",
+		"postType"
+	],
+	"attributes": {
+		"credential": {
+			"type": "integer",
+			"default": 0
+		},
+		"display": {
+			"type": "string",
+			"enum": [ "tabs", "stacked" ],
+			"default": "tabs"
+		},
+		"headingLevel": {
+			"type": "integer",
+			"default": 3
+		},
+		"linkCourses": {
+			"type": "boolean",
+			"default": true
+		},
+		"showTermTotals": {
+			"type": "boolean",
+			"default": true
+		},
+		"columns": {
+			"type": "integer",
+			"default": 0
+		}
+	},
+	"supports": {
+		"html": false,
+		"align": [ "wide", "full" ],
+		"spacing": {
+			"margin": true,
+			"padding": true
+		},
+		"typography": {
+			"fontSize": true
+		}
+	},
+	"editorScript": "catalogist-blocks",
+	"style": "catalogist-blocks",
+	"render": "file:./render.php",
+	"viewScript": "catalogist-program-map-view"
+}

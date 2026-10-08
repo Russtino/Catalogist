@@ -1,0 +1,29 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "catalogist/course-finder",
+	"version": "1.0.0",
+	"title": "Course Finder",
+	"category": "catalogist",
+	"icon": "book-alt",
+	"description": "A searchable table of all courses, filterable by department and program.",
+	"keywords": [ "courses", "search", "filter", "catalog", "course list" ],
+	"textdomain": "catalogist",
+	"attributes": {
+		"showSearch": { "type": "boolean", "default": true },
+		"showDepartmentFilter": { "type": "boolean", "default": true },
+		"showProgramFilter": { "type": "boolean", "default": true },
+		"showDepartmentColumn": { "type": "boolean", "default": true },
+		"linkCourses": { "type": "boolean", "default": true }
+	},
+	"supports": {
+		"html": false,
+		"align": [ "wide", "full" ],
+		"spacing": { "margin": true, "padding": true },
+		"typography": { "fontSize": true }
+	},
+	"editorScript": "catalogist-blocks",
+	"style": "catalogist-blocks",
+	"viewScript": "catalogist-program-finder-view",
+	"render": "file:./render.php"
+}

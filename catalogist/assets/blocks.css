@@ -1,0 +1,525 @@
+/* Program Catalog blocks. Colors inherit from the theme. */
+
+.catalogist-program-map__terms {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(min(100%, 20rem), 1fr));
+	gap: 1.5rem;
+	align-items: start;
+}
+
+.catalogist-program-map__term {
+	width: 100%;
+	border-collapse: collapse;
+	margin: 0;
+}
+
+.catalogist-program-map__term caption {
+	text-align: left;
+	font-weight: 700;
+	padding-bottom: 0.5em;
+}
+
+.catalogist-program-map__term th,
+.catalogist-program-map__term td {
+	padding: 0.4em 0.4em;
+	text-align: left;
+	vertical-align: top;
+	border: 0;
+	border-bottom: 1px solid rgba(128, 128, 128, 0.35);
+}
+
+.catalogist-program-map__term thead th {
+	font-size: 0.85em;
+}
+
+.catalogist-program-map__term tfoot th,
+.catalogist-program-map__term tfoot td {
+	font-weight: 700;
+	border-bottom: 0;
+}
+
+.catalogist-program-map__code {
+	white-space: nowrap;
+}
+
+.catalogist-program-map__term .catalogist-num {
+	text-align: right;
+	white-space: nowrap;
+}
+
+.catalogist-program-map__total {
+	font-weight: 700;
+	margin-top: 1rem;
+}
+
+.catalogist-details {
+	display: grid;
+	grid-template-columns: max-content 1fr;
+	gap: 0.4em 1.5em;
+	margin: 0;
+}
+
+.catalogist-details > div {
+	display: contents;
+}
+
+.catalogist-details dt {
+	font-weight: 700;
+}
+
+.catalogist-details dd {
+	margin: 0;
+}
+
+.catalogist-details__list {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+
+.catalogist-details__list li + li {
+	margin-top: 0.25em;
+}
+
+.catalogist-details__note {
+	margin: 0;
+}
+
+.catalogist-details__list + .catalogist-details__note {
+	margin-top: 0.4em;
+}
+
+
+.catalogist-program-map__credential + .catalogist-program-map__credential {
+	margin-top: 2.5rem;
+}
+
+.catalogist-program-map__heading {
+	margin-bottom: 1rem;
+}
+
+/* Tabs (multiple credentials) */
+.catalogist-program-map__tabs {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.25rem;
+	margin-bottom: 1.5rem;
+	border-bottom: 1px solid rgba(128, 128, 128, 0.35);
+}
+
+.catalogist-program-map__tabs[hidden] {
+	display: none;
+}
+
+.catalogist-program-map__tab {
+	appearance: none;
+	margin: 0 0 -1px;
+	padding: 0.6em 1em;
+	border: 0;
+	border-bottom: 3px solid transparent;
+	background: none;
+	color: inherit;
+	font: inherit;
+	cursor: pointer;
+}
+
+.catalogist-program-map__tab:hover {
+	border-bottom-color: rgba(128, 128, 128, 0.5);
+}
+
+.catalogist-program-map__tab[aria-selected="true"] {
+	border-bottom-color: currentColor;
+	font-weight: 700;
+}
+
+.catalogist-program-map__tab:focus-visible {
+	outline: 2px solid currentColor;
+	outline-offset: 2px;
+}
+
+.is-tabbed .catalogist-program-map__credential + .catalogist-program-map__credential {
+	margin-top: 0;
+}
+
+.is-tabbed .catalogist-program-map__credential:focus-visible {
+	outline: 2px solid currentColor;
+	outline-offset: 4px;
+}
+
+/* Print every credential, not just the open tab. */
+@media print {
+	.catalogist-program-map__tabs {
+		display: none;
+	}
+
+	.catalogist-program-map__credential[hidden],
+	.catalogist-program-map__heading[hidden] {
+		display: block;
+	}
+
+	.is-tabbed .catalogist-program-map__credential + .catalogist-program-map__credential {
+		margin-top: 2.5rem;
+	}
+}
+
+/* Program Finder */
+.catalogist-finder__form {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(min(100%, 12rem), 1fr));
+	gap: 1rem;
+	align-items: end;
+	margin-bottom: 1.5rem;
+}
+
+.catalogist-finder__form[hidden] {
+	display: none;
+}
+
+/* Show the form in the editor preview, where the script doesn't run. */
+.editor-styles-wrapper .catalogist-finder__form[hidden] {
+	display: grid;
+}
+
+.catalogist-finder__field--search {
+	grid-column: 1 / -1;
+}
+
+.catalogist-finder__field label {
+	display: block;
+	margin-bottom: 0.3em;
+	font-weight: 600;
+}
+
+.catalogist-finder__field input,
+.catalogist-finder__field select {
+	box-sizing: border-box;
+	width: 100%;
+	font: inherit;
+}
+
+.catalogist-finder__field--reset {
+	align-self: end;
+}
+
+.catalogist-finder__reset {
+	font: inherit;
+	cursor: pointer;
+}
+
+.catalogist-finder__status {
+	margin: 0 0 1rem;
+	font-size: 0.9em;
+}
+
+/* The card grid is for the Program Finder's list only; the Course Finder's table must span the full width. */
+ul.catalogist-finder__results {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(min(100%, 18rem), 1fr));
+	gap: 1.5rem;
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
+.catalogist-finder__item[hidden],
+.catalogist-finder__results[hidden],
+.catalogist-finder__empty[hidden] {
+	display: none;
+}
+
+.catalogist-finder__card {
+	box-sizing: border-box;
+	height: 100%;
+	padding: 1.25rem;
+	border: 1px solid rgba(128, 128, 128, 0.35);
+	border-radius: 4px;
+}
+
+.catalogist-finder__title {
+	margin: 0 0 0.5rem;
+	font-size: 1.2em;
+}
+
+.catalogist-finder__credentials {
+	margin: 0 0 0.75rem;
+	padding: 0;
+	list-style: none;
+	font-size: 0.9em;
+	font-weight: 600;
+}
+
+.catalogist-finder__excerpt {
+	margin: 0;
+}
+
+.catalogist-finder__empty {
+	padding: 1.5rem 0;
+}
+
+/* Course Finder */
+.catalogist-course-finder__scroll {
+	display: block;
+	width: 100%;
+	overflow-x: auto;
+}
+
+.catalogist-course-finder__table {
+	width: 100%;
+	border-collapse: collapse;
+	margin: 0;
+}
+
+.catalogist-course-finder__table th,
+.catalogist-course-finder__table td {
+	padding: 0.5em 0.6em;
+	text-align: left;
+	vertical-align: top;
+	border: 0;
+	border-bottom: 1px solid rgba(128, 128, 128, 0.35);
+}
+
+.catalogist-course-finder__table thead th {
+	font-size: 0.85em;
+}
+
+.catalogist-course-finder__table .catalogist-num {
+	text-align: right;
+	white-space: nowrap;
+}
+
+.catalogist-course-finder__code {
+	white-space: nowrap;
+	font-weight: 600;
+}
+
+/* Credential descriptions */
+.catalogist-details__description {
+	display: block;
+	margin-top: 0.15em;
+	font-size: 0.9em;
+	opacity: 0.85;
+}
+
+.catalogist-program-map__description {
+	margin: 0 0 1rem;
+}
+
+/* Enrollment notice (Program Details and Program Finder cards) */
+.catalogist-notice {
+	margin: 0 0 1rem;
+	padding: 0.75em 1em;
+	border-left: 4px solid currentColor;
+	background: rgba(128, 128, 128, 0.1);
+}
+
+.catalogist-notice p {
+	margin: 0;
+}
+
+.catalogist-notice p + p {
+	margin-top: 0.5em;
+}
+
+.catalogist-finder__notice {
+	margin: 0 0 0.75rem;
+	padding: 0.4em 0.7em;
+	border-left: 3px solid currentColor;
+	background: rgba(128, 128, 128, 0.1);
+	font-size: 0.9em;
+}
+
+/* Program List (outcomes, careers, certifications) */
+.catalogist-program-list__label {
+	margin: 1em 0 0.25em;
+	font-weight: 700;
+}
+
+.catalogist-program-list__items li + li {
+	margin-top: 0.3em;
+}
+
+/* Choice slots in program maps */
+.catalogist-program-map__choice-label {
+	font-style: italic;
+}
+
+.catalogist-program-map__choose {
+	display: block;
+	margin-top: 0.2em;
+	font-size: 0.9em;
+}
+
+.catalogist-program-map__options {
+	margin: 0.15em 0 0;
+	padding: 0;
+	list-style: none;
+	font-size: 0.9em;
+}
+
+.catalogist-program-map__options li {
+	margin: 0;
+	padding: 0.1em 0;
+}
+
+/* Pathways */
+.catalogist-pathways {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 0.5rem;
+	margin: 0 0 1.25rem;
+}
+
+.catalogist-pathways[hidden] {
+	display: none;
+}
+
+.catalogist-pathways__label {
+	font-weight: 700;
+}
+
+.catalogist-pathways__buttons {
+	display: inline-flex;
+	flex-wrap: wrap;
+	gap: 0.25rem;
+}
+
+.catalogist-pathways__button {
+	appearance: none;
+	margin: 0;
+	padding: 0.35em 0.9em;
+	border: 1px solid currentColor;
+	border-radius: 999px;
+	background: transparent;
+	color: inherit;
+	font: inherit;
+	cursor: pointer;
+}
+
+.catalogist-pathways__button[aria-pressed="true"] {
+	background: rgba(128, 128, 128, 0.2);
+	font-weight: 700;
+	box-shadow: inset 0 0 0 1px currentColor;
+}
+
+.catalogist-pathways__button:focus-visible {
+	outline: 2px solid currentColor;
+	outline-offset: 2px;
+}
+
+.catalogist-pathways__description {
+	flex-basis: 100%;
+	margin: 0.25rem 0 0;
+	font-size: 0.95em;
+}
+
+.catalogist-program-map__pathway-heading th {
+	padding-top: 0.8em;
+	font-style: italic;
+	font-weight: 700;
+	border-bottom-width: 0;
+}
+
+.catalogist-program-map__term tbody[hidden] {
+	display: none;
+}
+
+@media print {
+	.catalogist-pathways {
+		display: none;
+	}
+
+	.catalogist-program-map__term tbody[hidden] {
+		display: table-row-group;
+	}
+}
+
+.catalogist-details__pathways {
+	margin: 0.3em 0 0;
+	padding: 0 0 0 1em;
+	list-style: none;
+	font-size: 0.9em;
+}
+
+/* Fixed column widths, so Code / Title / Credits line up across every term's table. */
+.catalogist-program-map__term {
+	table-layout: fixed;
+}
+
+/* Code and Credits stay compact so Title gets most of each column. */
+.catalogist-program-map__term thead th:first-child {
+	width: 6em;
+}
+
+.catalogist-program-map__term thead th:last-child {
+	width: 4.5em;
+}
+
+.catalogist-program-map__term td,
+.catalogist-program-map__term th {
+	overflow-wrap: anywhere;
+}
+
+.catalogist-program-map__code {
+	white-space: normal;
+}
+
+.catalogist-course-finder__table {
+	table-layout: fixed;
+}
+
+.catalogist-course-finder__table thead th:first-child {
+	width: 7.5em;
+}
+
+.catalogist-course-finder__table thead th:nth-child(3) {
+	width: 5em;
+}
+
+
+/* Course groups: each group's courses stacked, groups set apart by space. */
+.catalogist-program-map__group {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
+.catalogist-program-map__group li {
+	margin: 0;
+	padding: 0.05em 0;
+}
+
+.catalogist-program-map__options.has-groups > li + li {
+	margin-top: 0.75em;
+}
+
+/* Semesters per row (Program Map setting). Narrow screens always stack. */
+.catalogist-program-map__terms[data-columns="1"] {
+	grid-template-columns: minmax(0, 1fr);
+}
+
+@media (min-width: 700px) {
+	.catalogist-program-map__terms[data-columns="2"],
+	.catalogist-program-map__terms[data-columns="3"],
+	.catalogist-program-map__terms[data-columns="4"] {
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+	}
+}
+
+@media (min-width: 1000px) {
+	.catalogist-program-map__terms[data-columns="3"] {
+		grid-template-columns: repeat(3, minmax(0, 1fr));
+	}
+}
+
+@media (min-width: 1200px) {
+	.catalogist-program-map__terms[data-columns="4"] {
+		grid-template-columns: repeat(4, minmax(0, 1fr));
+	}
+}
+
+@media (max-width: 699px) {
+	.catalogist-program-map__terms[data-columns] {
+		grid-template-columns: minmax(0, 1fr);
+	}
+}

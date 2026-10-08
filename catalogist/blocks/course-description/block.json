@@ -1,0 +1,21 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "catalogist/course-description",
+	"version": "1.0.0",
+	"title": "Course Description",
+	"category": "catalogist",
+	"icon": "text-page",
+	"description": "Shows the course description from the Course Details panel.",
+	"keywords": [ "description", "course", "summary" ],
+	"textdomain": "catalogist",
+	"usesContext": [ "postId", "postType" ],
+	"supports": {
+		"html": false,
+		"spacing": { "margin": true, "padding": true },
+		"typography": { "fontSize": true, "lineHeight": true }
+	},
+	"editorScript": "catalogist-blocks",
+	"style": "catalogist-blocks",
+	"render": "file:./render.php"
+}

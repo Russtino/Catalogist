@@ -1,0 +1,19 @@
+{
+  "name": "catalogist",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Build scripts for the Catalogist WordPress plugin.",
+  "license": "GPL-2.0-or-later",
+  "scripts": {
+    "build": "wp-scripts build editor=./src/editor.js blocks=./src/blocks/index.js import=./src/import/index.js template=./src/template/index.js",
+    "start": "wp-scripts start editor=./src/editor.js blocks=./src/blocks/index.js import=./src/import/index.js template=./src/template/index.js"
+  },
+  "devDependencies": {
+    "@wordpress/icons": "^17.0.0",
+    "@wordpress/scripts": "^30.0.0"
+  },
+  "dependencies": {
+    "papaparse": "^5.7.0",
+    "read-excel-file": "^9.3.10"
+  }
+}
